@@ -1,6 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getDatabase, ref, set, onValue, remove } from "firebase/database";
+import { useEffect, useState } from "react";
 
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -16,35 +17,5 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-const db = getDatabase();
-
+export default app;
 // To create a new instance of a user on the database
-export default function writeUserData(name, email, phoneNumber) {
-  const reference = ref(db, "users/" + name);
-  set(reference, {
-    username: name,
-    email: email,
-    phoneNumber: phoneNumber,
-  });
-}
-
-// To read the data from the database
-export function getUserData(setData) {
-  const dbRef = ref(db, "users/");
-  let records = [];
-  onValue(dbRef, (snapshot) => {
-    snapshot.forEach((item) => {
-      let keyName = item.key;
-      let data = item.val();
-      records.push({ key: keyName, data: data });
-    });
-    setData(records);
-    return records;
-  });
-}
-
-// To delete the data from the database
-export function deleteData(id, event) {
-  event.preventDefault();
-  remove(ref(db, `/users/${id}`));
-}

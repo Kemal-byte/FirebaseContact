@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import writeUserData, { getUserData } from "../../firebase/firebase";
+import { writeUserData } from "../../firebase/helpers";
+import getUserData from "../../firebase/helpers";
 import "./form.css";
 
 const form = ({ data, setData }) => {
@@ -18,14 +19,11 @@ const form = ({ data, setData }) => {
       };
     });
   }
-  useEffect(() => {
-    getUserData(setData);
-  }, []);
 
   function handleSubmit(event) {
     event.preventDefault();
     writeUserData(user.name, user.email, user.phoneNumber);
-    getUserData(setData);
+    getUserData();
     console.log(user);
   }
   console.log(data);
