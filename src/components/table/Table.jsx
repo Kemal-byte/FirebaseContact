@@ -1,17 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { getUserData } from "../../firebase/firebase";
+import React from "react";
 import "./table.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { deleteData } from "../../firebase/firebase";
 
 const table = ({ data }) => {
   console.log("data receieved in");
   console.log(data);
-  const [user, setUser] = useState({});
-
-  useEffect(() => {
-    setUser(data);
-    console.log("Holder is ");
-    console.log(user);
-  }, []);
 
   return (
     <div className="table">
@@ -35,7 +30,12 @@ const table = ({ data }) => {
                   <td>{item.key}</td>
                   <td>{item.data.email}</td>
                   <td>{item.data.phoneNumber}</td>
-                  <td>{item.key}</td>
+                  <td
+                    style={{ cursor: "pointer" }}
+                    onClick={() => deleteData(item.key)}
+                  >
+                    <FontAwesomeIcon icon={faTrash} />
+                  </td>
                 </tr>
               );
             })}

@@ -10,7 +10,6 @@ const form = ({ data, setData }) => {
   });
 
   function handleInput(event) {
-    // console.log(event);
     const { name, value } = event.target;
     setUser((prev) => {
       return {
